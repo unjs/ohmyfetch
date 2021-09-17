@@ -110,6 +110,18 @@ const response = await $fetch.raw('/sushi')
 // ...
 ```
 
+## ✔️ Custom JSON parsing
+
+By using `parse` option, `$fetch` determines how to parse data.
+
+```js
+// Disable JSON parsing
+await $fetch('/movie?lang=en', { parse: false })
+
+// Use JSON.parse to parse
+await $fetch('/movie?lang=en', { parse: JSON.parse })
+```
+
 ## 📦 Bundler Notes
 
 - All targets are exported with Module and CommonJS format and named exports
