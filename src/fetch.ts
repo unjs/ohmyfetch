@@ -47,13 +47,8 @@ export function createFetch(globalOptions: CreateFetchOptions = {}): $Fetch {
         !context.options.timeout) ||
       false;
     // Retry
-    if (context.options.retry !== false && !isAbort) {
-      let retries;
-      if (typeof context.options.retry === "number") {
-        retries = context.options.retry;
-      } else {
-        retries = isPayloadMethod(context.options.method) ? 0 : 1;
-      }
+    if (typeof context.options.retry === "number" && !isAbort) {
+      const retries = context.options.retry;
 
       const responseCode = (context.response && context.response.status) || 500;
       if (
@@ -97,6 +92,7 @@ export function createFetch(globalOptions: CreateFetchOptions = {}): $Fetch {
 
     // Uppercase method name
     context.options.method = context.options.method?.toUpperCase();
+    context.options.retry ??= isPayloadMethod(context.options.method) ? 0 : 1;
 
     if (context.options.onRequest) {
       await context.options.onRequest(context);

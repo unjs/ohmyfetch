@@ -273,6 +273,25 @@ describe("ofetch", () => {
     expect(error.request).to.equal(getURL("404"));
   });
 
+  it("aware of retry", async () => {
+    // default retry
+    await $fetch("/404", {
+      onRequestError(context) {
+        expect(context.options.retry).toBeTypeOf("number");
+      },
+    }).catch((error_) => error_);
+
+    // explicit retry
+    await $fetch("/404", {
+      retry: 3,
+      onRequestError(context) {
+        expect(context.options.retry).toBeTypeOf("number");
+      },
+    }).catch((error_) => error_);
+
+    expect.hasAssertions();
+  });
+
   it("retry with delay", async () => {
     const slow = $fetch<string>(getURL("408"), {
       retry: 2,
