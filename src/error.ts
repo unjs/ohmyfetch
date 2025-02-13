@@ -29,7 +29,9 @@ export function createFetchError<T = any>(
   const requestStr = `[${method}] ${JSON.stringify(url)}`;
 
   const statusStr = ctx.response
-    ? `${ctx.response.status} ${ctx.response.statusText}`
+    ? `${ctx.response.status}${
+        ctx.response.statusText ? ` ${ctx.response.statusText}` : ""
+      }`
     : "<no response>";
 
   const message = `${requestStr}: ${statusStr}${
