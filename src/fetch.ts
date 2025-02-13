@@ -1,6 +1,6 @@
 import type { Readable } from "node:stream";
 import destr from "destr";
-import { withBase, withQuery } from "ufo";
+import { withBase, withQuery } from "./path";
 import { createFetchError } from "./error";
 import {
   isPayloadMethod,
